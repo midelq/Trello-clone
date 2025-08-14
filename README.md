@@ -7,7 +7,6 @@ A modern task management application built with React, TypeScript, and Tailwind 
 - 🔐 User Authentication
   - Login and Registration
   - Form validation
-  - Responsive design
 - 📋 Board Management (Coming Soon)
   - Create and manage boards
   - Organize tasks into lists
@@ -43,10 +42,6 @@ npm run dev
 
 4. Open [http://localhost:5173](http://localhost:5173) in your browser
 
-
-```
-
-```
 
 ## License
 
