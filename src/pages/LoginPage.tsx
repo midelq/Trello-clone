@@ -18,7 +18,6 @@ export default function LoginPage() {
     if (isLogin) {
       if (email && password) {
         setMessage('Login successful!');
-        // Тут буде логіка авторизації
         navigate('/boards');
       } else {
         setMessage('Please enter email and password.');
@@ -33,7 +32,6 @@ export default function LoginPage() {
         return;
       }
       setMessage('Signup successful!');
-      // Тут буде логіка реєстрації
       navigate('/boards');
     }
   }
