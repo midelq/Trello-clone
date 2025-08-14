@@ -1,41 +1,124 @@
 import { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import './styles/auth.css';
 
 export default function LoginPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+  
+  const isLogin = searchParams.get('mode') !== 'signup';
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Stub API imitation
-    if (email && password) {
-      setMessage('Login successful (stub)!');
+    if (isLogin) {
+      if (email && password) {
+        setMessage('Login successful!');
+        // Тут буде логіка авторизації
+        navigate('/boards');
+      } else {
+        setMessage('Please enter email and password.');
+      }
     } else {
-      setMessage('Please enter email and password.');
+      if (!fullName || !email || !password || !confirmPassword) {
+        setMessage('Please fill in all fields.');
+        return;
+      }
+      if (password !== confirmPassword) {
+        setMessage('Passwords do not match.');
+        return;
+      }
+      setMessage('Signup successful!');
+      // Тут буде логіка реєстрації
+      navigate('/boards');
     }
   }
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <br />
-        <button type="submit">Login</button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className="auth-container">
+      <div className="auth-header">
+        <h1 className="auth-title">Trello Clone</h1>
+        <p className="auth-subtitle">Organize your projects with ease</p>
+      </div>
+      <div className="auth-card">
+        <div className="auth-tabs">
+          <button
+            onClick={() => setSearchParams({})}
+            className={`auth-tab ${isLogin ? 'auth-tab-active' : 'auth-tab-inactive'}`}
+          >
+            Login
+          </button>
+          <button
+            onClick={() => setSearchParams({ mode: 'signup' })}
+            className={`auth-tab ${!isLogin ? 'auth-tab-active' : 'auth-tab-inactive'}`}
+          >
+            Sign Up
+          </button>
+        </div>
+        <h2 className="auth-form-title">
+          {isLogin ? 'Welcome back' : 'Create account'}
+        </h2>
+        <p className="auth-form-subtitle">
+          {isLogin 
+            ? 'Enter your credentials to access your boards'
+            : 'Sign up to start organizing your projects'}
+        </p>
+        <form onSubmit={handleSubmit} className="auth-form">
+          {!isLogin && (
+            <div className="auth-form-group">
+              <label className="auth-label">Full Name</label>
+              <input
+                type="text"
+                className="auth-input"
+                placeholder="Enter your full name"
+                value={fullName}
+                onChange={e => setFullName(e.target.value)}
+              />
+            </div>
+          )}
+          <div className="auth-form-group">
+            <label className="auth-label">Email</label>
+            <input
+              type="email"
+              className="auth-input"
+              placeholder="Enter your email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="auth-form-group">
+            <label className="auth-label">Password</label>
+            <input
+              type="password"
+              className="auth-input"
+              placeholder="Enter your password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </div>
+          {!isLogin && (
+            <div className="auth-form-group">
+              <label className="auth-label">Confirm Password</label>
+              <input
+                type="password"
+                className="auth-input"
+                placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+              />
+            </div>
+          )}
+          <button type="submit" className="auth-button">
+            {isLogin ? 'Sign In' : 'Create Account'}
+          </button>
+        </form>
+        {message && <p className="auth-message">{message}</p>}
+      </div>
+      <p className="auth-demo-text">Demo credentials: any email/password combination will work</p>
     </div>
   );
 }

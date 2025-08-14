@@ -1,23 +1,15 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import HomePage from './HomePage';
-import AboutPage from './AboutPage';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './LoginPage';
-import SignupPage from './SignupPage';
+import BoardsPage from './pages/BoardsPage';
 import './App.css';
 
 function App() {
   return (
-    <>
-      <nav style={{ marginBottom: 20 }}>
-        <Link to="/">Home</Link> | <Link to="/about">About</Link> | <Link to="/login">Login</Link> | <Link to="/signup">Sign Up</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/boards" element={<BoardsPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
