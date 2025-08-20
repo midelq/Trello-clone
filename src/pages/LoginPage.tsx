@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import './styles/auth.css';
+import { motion } from 'framer-motion';
+import '../styles/auth.css';
 
 export default function LoginPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,10 +39,29 @@ export default function LoginPage() {
 
   return (
     <div className="auth-container">
-      <div className="auth-header">
-        <h1 className="auth-title">Trello Clone</h1>
-        <p className="auth-subtitle">Organize your projects with ease</p>
-      </div>
+      <motion.div 
+        className="auth-header"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <motion.h1 
+          className="auth-title"
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          Trello Clone
+        </motion.h1>
+        <motion.p 
+          className="auth-subtitle"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          Organize your projects with ease
+        </motion.p>
+      </motion.div>
       <div className="auth-card">
         <div className="auth-tabs">
           <button
@@ -116,7 +136,9 @@ export default function LoginPage() {
         </form>
         {message && <p className="auth-message">{message}</p>}
       </div>
-      <p className="auth-demo-text">Demo credentials: any email/password combination will work</p>
+      <p className="auth-demo-text">
+        Demo credentials: any email/password combination will work
+      </p>
     </div>
   );
 }

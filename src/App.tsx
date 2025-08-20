@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import BoardsPage from './pages/BoardsPage';
-import './App.css';
+
 
 function App() {
   return (
