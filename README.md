@@ -2,16 +2,6 @@
 
 A modern task management application built with React, TypeScript, and Tailwind CSS.
 
-## Features
-
-- 🔐 User Authentication
-  - Login and Registration
-  - Form validation
-- 📋 Board Management (Coming Soon)
-  - Create and manage boards
-  - Organize tasks into lists
-  - Drag and drop functionality
-
 ## Tech Stack
 
 - **Frontend Framework**: React with TypeScript
