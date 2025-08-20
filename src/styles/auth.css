@@ -55,6 +55,7 @@
   border-radius: 0.375rem;
   transition: all 0.2s ease;
   cursor: pointer;
+  color: #1F2937;  
 }
 
 .auth-tab:hover {
@@ -62,12 +63,14 @@
 }
 
 .auth-tab-active {
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #764ba2;
+  box-shadow: 0 2px 4px rgba(118, 75, 162, 0.3);
+  color: white;  
 }
 
 .auth-tab-inactive {
-  color: #6B7280;
+  background-color: white;
+  color: #764ba2;
 }
 
 /* Auth Form */
