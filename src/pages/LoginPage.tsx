@@ -19,7 +19,7 @@ export default function LoginPage() {
     if (isLogin) {
       if (email && password) {
         setMessage('Login successful!');
-        navigate('/boards');
+        navigate('/dashboard');
       } else {
         setMessage('Please enter email and password.');
       }
