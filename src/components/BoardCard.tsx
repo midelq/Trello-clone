@@ -16,21 +16,21 @@ const BoardCard: React.FC<BoardCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lg transition-shadow"
+      className="board-card"
     >
       <div className="flex justify-between items-start mb-4">
-        <h3 className="text-lg font-semibold">{title}</h3>
+        <h3 className="board-title">{title}</h3>
         <button
           onClick={(e) => {
             e.stopPropagation();
             onMenuClick?.();
           }}
-          className="text-gray-400 hover:text-gray-600"
+          className="board-menu-button"
         >
           ⋮
         </button>
       </div>
-      <div className="text-sm text-gray-500">
+      <div className="board-updated">
         Updated {updatedAt}
       </div>
     </div>

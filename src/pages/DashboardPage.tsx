@@ -1,5 +1,6 @@
 import React from 'react';
 import BoardCard from '../components/BoardCard';
+import '../styles/auth.css';
 
 interface Board {
   id: string;
@@ -23,19 +24,22 @@ const DashboardPage: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-2xl font-bold">Your Boards</h1>
-          <p className="text-gray-600">You have {boards.length} boards</p>
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="dashboard-title">Your Boards</h1>
+            <p className="dashboard-subtitle">You have {boards.length} boards</p>
+          </div>
+          <button className="create-board-button">
+            <span>+</span>
+            Create Board
+          </button>
         </div>
-        <button className="bg-black text-white px-4 py-2 rounded-lg flex items-center gap-2">
-          <span className="text-xl">+</span>
-          Create Board
-        </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="dashboard-content">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {boards.map((board) => (
           <BoardCard
             key={board.id}
@@ -45,6 +49,7 @@ const DashboardPage: React.FC = () => {
             onMenuClick={() => console.log(`Open menu for board ${board.id}`)}
           />
         ))}
+        </div>
       </div>
     </div>
   );
