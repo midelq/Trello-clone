@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useUser } from '../contexts/UserContext';
 import { motion } from 'framer-motion';
 import '../styles/auth.css';
 
 export default function LoginPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { setUser } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
@@ -19,6 +21,7 @@ export default function LoginPage() {
     if (isLogin) {
       if (email && password) {
         setMessage('Login successful!');
+        setUser({ email, fullName: email.split('@')[0] });
         navigate('/dashboard');
       } else {
         setMessage('Please enter email and password.');

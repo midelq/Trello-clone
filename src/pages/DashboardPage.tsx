@@ -1,5 +1,8 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import BoardCard from '../components/BoardCard';
+import Navbar from '../components/Navbar';
+import { useUser } from '../contexts/UserContext';
 import '../styles/auth.css';
 
 interface Board {
@@ -9,6 +12,11 @@ interface Board {
 }
 
 const DashboardPage: React.FC = () => {
+  const { user } = useUser();
+
+  if (!user) {
+    return <Navigate to="/" />;
+  }
   // Mock data for now - later this will come from your backend
   const boards: Board[] = [
     {
@@ -24,7 +32,9 @@ const DashboardPage: React.FC = () => {
   ];
 
   return (
-    <div className="dashboard-container">
+    <>
+      <Navbar username={user.email} />
+      <div className="dashboard-container">
       <div className="dashboard-header">
         <div className="flex justify-between items-center">
           <div>
@@ -52,6 +62,7 @@ const DashboardPage: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
