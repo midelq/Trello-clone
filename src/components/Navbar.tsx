@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../contexts/UserContext';
-import BitcoinPrice from './BitcoinPrice';
 import FearGreedIndex from './FearGreedIndex';
 import '../styles/auth.css';
 
@@ -25,8 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
           <Link to="/dashboard" className="navbar-logo">
             Trello Clone
           </Link>
-          <BitcoinPrice />
-          <FearGreedIndex />
+
         </div>
         <div className="navbar-right">
           <div className="user-info">
