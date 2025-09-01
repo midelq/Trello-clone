@@ -37,19 +37,25 @@ const DashboardPage: React.FC = () => {
     <>
       <Navbar username={user.email} />
       <div className="dashboard-container">
-        <div className="flex justify-between">
-          <div className="flex-1">
+        <div className="dashboard-layout">
+          <div className="dashboard-main">
             <div className="dashboard-header">
-              <div className="flex justify-between items-center">
+              <div className="dashboard-header-content">
                 <div>
                   <h1 className="dashboard-title">Your Boards</h1>
                   <p className="dashboard-subtitle">You have {boards.length} boards</p>
                 </div>
+                <button className="create-board-button mobile-full-width">
+                  <svg viewBox="0 0 24 24" fill="currentColor" height="20" width="20">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
+                  Create Board
+                </button>
               </div>
             </div>
 
             <div className="dashboard-content">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="boards-grid">
                 {boards.map((board) => (
                   <BoardCard
                     key={board.id}
@@ -62,15 +68,12 @@ const DashboardPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-end space-y-4">
-            <button className="create-board-button">
-              <span>+</span>
-              Create Board
-            </button>
-            <div className="w-64 p-4 bg-gradient-to-br from-purple-600 to-purple-500 rounded-lg shadow-lg h-fit">
-              <h2 className="text-lg font-semibold mb-4 text-white">Crypto Market</h2>
+          
+          <div className="dashboard-sidebar">
+            <div className="crypto-widget">
+              <h2 className="crypto-widget-title">Crypto Market</h2>
               <CryptoPrices />
-              <div className="mt-6 pt-6 border-t border-purple-400">
+              <div className="crypto-widget-divider">
                 <FearGreedIndex />
               </div>
             </div>

@@ -1,15 +1,31 @@
-import React from 'react';
+
 
 export default function BoardsPage() {
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">My Boards</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Here will be a list of boards   */}
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h2 className="text-xl font-semibold">Sample Board</h2>
-          <p className="text-gray-600 mt-2">This is a sample board</p>
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <h1 className="dashboard-title">My Boards</h1>
+        <p className="dashboard-subtitle">Manage and organize your projects</p>
+      </div>
+      <div className="dashboard-content">
+        <div className="board-card">
+          <h2 className="board-title">Sample Board</h2>
+          <p className="board-updated">Last updated: 2 hours ago</p>
         </div>
+        <div className="board-card">
+          <h2 className="board-title">Project Planning</h2>
+          <p className="board-updated">Last updated: 1 day ago</p>
+        </div>
+        <div className="board-card">
+          <h2 className="board-title">Team Tasks</h2>
+          <p className="board-updated">Last updated: 3 days ago</p>
+        </div>
+        <button className="create-board-button">
+          <svg viewBox="0 0 24 24" fill="currentColor" height="20" width="20">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+          Create New Board
+        </button>
       </div>
     </div>
   );

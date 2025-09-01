@@ -52,29 +52,29 @@ const CryptoPrices: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex justify-between items-center p-2 bg-purple-50 rounded-md hover:bg-purple-100 transition-colors">
-        <span className="font-medium text-purple-700">BTC</span>
-        <div className="flex items-center">
-          <span className="text-purple-900">
+    <div className="crypto-prices">
+      <div className="crypto-price-item">
+        <span className="crypto-symbol">BTC</span>
+        <div className="crypto-price-info">
+          <span className="crypto-price">
             {prices ? formatPrice(prices.bitcoin.usd) : 'Loading...'}
           </span>
           {prices && <PriceChange change={prices.bitcoin.usd_24h_change} />}
         </div>
       </div>
-      <div className="flex justify-between items-center p-2 bg-purple-50 rounded-md hover:bg-purple-100 transition-colors">
-        <span className="font-medium text-purple-700">ETH</span>
-        <div className="flex items-center">
-          <span className="text-purple-900">
+      <div className="crypto-price-item">
+        <span className="crypto-symbol">ETH</span>
+        <div className="crypto-price-info">
+          <span className="crypto-price">
             {prices ? formatPrice(prices.ethereum.usd) : 'Loading...'}
           </span>
           {prices && <PriceChange change={prices.ethereum.usd_24h_change} />}
         </div>
       </div>
-      <div className="flex justify-between items-center p-2 bg-purple-50 rounded-md hover:bg-purple-100 transition-colors">
-        <span className="font-medium text-purple-700">SOL</span>
-        <div className="flex items-center">
-          <span className="text-purple-900">
+      <div className="crypto-price-item">
+        <span className="crypto-symbol">SOL</span>
+        <div className="crypto-price-info">
+          <span className="crypto-price">
             {prices ? formatPrice(prices.solana.usd) : 'Loading...'}
           </span>
           {prices && <PriceChange change={prices.solana.usd_24h_change} />}
