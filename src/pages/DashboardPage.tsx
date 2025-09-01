@@ -45,10 +45,6 @@ const DashboardPage: React.FC = () => {
                   <h1 className="dashboard-title">Your Boards</h1>
                   <p className="dashboard-subtitle">You have {boards.length} boards</p>
                 </div>
-                <button className="create-board-button">
-                  <span>+</span>
-                  Create Board
-                </button>
               </div>
             </div>
 
@@ -66,13 +62,19 @@ const DashboardPage: React.FC = () => {
               </div>
             </div>
           </div>
-                     <div className="w-64 p-4 bg-gradient-to-br from-purple-600 to-purple-500 rounded-lg shadow-lg h-fit mt-16">
-             <h2 className="text-lg font-semibold mb-4 text-white">Crypto Market</h2>
-             <CryptoPrices />
-             <div className="mt-6 pt-6 border-t border-purple-400">
-               <FearGreedIndex />
-             </div>
-           </div>
+          <div className="flex flex-col items-end space-y-4">
+            <button className="create-board-button">
+              <span>+</span>
+              Create Board
+            </button>
+            <div className="w-64 p-4 bg-gradient-to-br from-purple-600 to-purple-500 rounded-lg shadow-lg h-fit">
+              <h2 className="text-lg font-semibold mb-4 text-white">Crypto Market</h2>
+              <CryptoPrices />
+              <div className="mt-6 pt-6 border-t border-purple-400">
+                <FearGreedIndex />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

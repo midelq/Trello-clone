@@ -25,7 +25,7 @@ const FearGreedIndex: React.FC = () => {
     };
 
     fetchFearGreedIndex();
-    const interval = setInterval(fetchFearGreedIndex, 300000); // Update every 5 minutes
+    const interval = setInterval(fetchFearGreedIndex, 300000); 
 
     return () => clearInterval(interval);
   }, []);
