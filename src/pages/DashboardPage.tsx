@@ -16,6 +16,8 @@ interface Board {
 const DashboardPage: React.FC = () => {
   const { user } = useUser();
   const [isCreating, setIsCreating] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingBoardId, setEditingBoardId] = useState<string | null>(null);
   const [newBoardTitle, setNewBoardTitle] = useState('');
   const [boards, setBoards] = useState<Board[]>([
     {
@@ -36,28 +38,66 @@ const DashboardPage: React.FC = () => {
 
   const handleCreateBoard = () => {
     setIsCreating(true);
+    setIsEditing(false);
+    setEditingBoardId(null);
+    setNewBoardTitle('');
+  };
+
+  const handleEditBoard = (board: Board) => {
+    setIsEditing(true);
+    setIsCreating(false);
+    setEditingBoardId(board.id);
+    setNewBoardTitle(board.title);
+  };
+
+  const handleDeleteBoard = (boardId: string) => {
+    if (window.confirm('Are you sure you want to delete this board?')) {
+      setBoards(boards.filter(board => board.id !== boardId));
+    }
   };
 
   const handleSaveBoard = () => {
     if (newBoardTitle.trim()) {
-      const newBoard: Board = {
-        id: Date.now().toString(),
-        title: newBoardTitle.trim(),
-        updatedAt: new Date().toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        })
-      };
-      setBoards([...boards, newBoard]);
+      if (isEditing && editingBoardId) {
+       
+        setBoards(boards.map(board => 
+          board.id === editingBoardId 
+            ? {
+                ...board,
+                title: newBoardTitle.trim(),
+                updatedAt: new Date().toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })
+              }
+            : board
+        ));
+        setIsEditing(false);
+        setEditingBoardId(null);
+      } else {
+        // Створюємо новий борд
+        const newBoard: Board = {
+          id: Date.now().toString(),
+          title: newBoardTitle.trim(),
+          updatedAt: new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          })
+        };
+        setBoards([...boards, newBoard]);
+        setIsCreating(false);
+      }
       setNewBoardTitle('');
-      setIsCreating(false);
     }
   };
 
   const handleCancelCreate = () => {
     setNewBoardTitle('');
     setIsCreating(false);
+    setIsEditing(false);
+    setEditingBoardId(null);
   };
 
   return (
@@ -86,7 +126,7 @@ const DashboardPage: React.FC = () => {
 
             <div className="dashboard-content">
               <div className="boards-grid">
-                {isCreating && (
+                {(isCreating || isEditing) && (
                   <div className="board-card create-board-form">
                     <input
                       type="text"
@@ -108,7 +148,7 @@ const DashboardPage: React.FC = () => {
                         className="board-save-button"
                         onClick={handleSaveBoard}
                       >
-                        Save
+                        {isEditing ? 'Update' : 'Save'}
                       </button>
                       <button 
                         className="board-cancel-button"
@@ -125,7 +165,8 @@ const DashboardPage: React.FC = () => {
                     title={board.title}
                     updatedAt={board.updatedAt}
                     onClick={() => console.log(`Navigate to board ${board.id}`)}
-                    onMenuClick={() => console.log(`Open menu for board ${board.id}`)}
+                    onEdit={() => handleEditBoard(board)}
+                    onDelete={() => handleDeleteBoard(board.id)}
                   />
                 ))}
               </div>
