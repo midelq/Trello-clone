@@ -162,9 +162,9 @@ const DashboardPage: React.FC = () => {
                 {boards.map((board) => (
                   <BoardCard
                     key={board.id}
+                    id={board.id}
                     title={board.title}
                     updatedAt={board.updatedAt}
-                    onClick={() => console.log(`Navigate to board ${board.id}`)}
                     onEdit={() => handleEditBoard(board)}
                     onDelete={() => handleDeleteBoard(board.id)}
                   />

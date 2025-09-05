@@ -1,20 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface BoardCardProps {
+  id: string;
   title: string;
   updatedAt: string;
-  onClick?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
 }
 
 const BoardCard: React.FC<BoardCardProps> = ({
+  id,
   title,
   updatedAt,
-  onClick,
   onEdit,
   onDelete
 }) => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -44,7 +46,7 @@ const BoardCard: React.FC<BoardCardProps> = ({
 
   return (
     <div
-      onClick={onClick}
+      onClick={() => navigate(`/board/${id}`)}
       className="board-card"
     >
       <div className="flex justify-between items-start mb-4">
