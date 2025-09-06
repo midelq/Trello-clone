@@ -93,25 +93,23 @@ const BoardView: React.FC = () => {
 
 <>
       <Navbar username={user.email} />
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">
-            {board?.title || 'Board View'}
-          </h1>
+      <div className="min-h-screen bg-[#6366F1] p-6">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-white">{board?.title || 'Board View'}</h1>
         </div>
 
-      <div className="flex space-x-4 overflow-x-auto pb-4">
-        {lists.map((list) => (
-          <List
-            key={list.id}
-            list={list}
-            onAddCard={handleAddCard}
-            onEditCard={handleEditCard}
-            onDeleteCard={handleDeleteCard}
-          />
-        ))}
+        <div className="flex space-x-4 overflow-x-auto pb-4 px-2">
+          {lists.map((list) => (
+            <List
+              key={list.id}
+              list={list}
+              onAddCard={handleAddCard}
+              onEditCard={handleEditCard}
+              onDeleteCard={handleDeleteCard}
+            />
+          ))}
+        </div>
       </div>
-    </div>
     </>
   );
 };
