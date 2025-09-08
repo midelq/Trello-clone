@@ -14,6 +14,8 @@ const BoardView: React.FC = () => {
   const { boardId } = useParams<{ boardId: string }>();
   const [lists, setLists] = useState<ListType[]>([]);
   const [board, setBoard] = useState<Board | null>(null);
+  const [isAddingList, setIsAddingList] = useState(false);
+  const [newListTitle, setNewListTitle] = useState('');
 
   useEffect(() => {
     
@@ -89,6 +91,28 @@ const BoardView: React.FC = () => {
     ));
   };
 
+  const handleAddList = () => {
+    if (newListTitle.trim()) {
+      const newList: ListType = {
+        id: Date.now().toString(),
+        title: newListTitle.trim(),
+        cards: [],
+        boardId: boardId || '',
+      };
+      setLists([...lists, newList]);
+      setNewListTitle('');
+      setIsAddingList(false);
+    }
+  };
+
+  const handleEditListTitle = (listId: string, newTitle: string) => {
+    setLists(lists.map(list =>
+      list.id === listId
+        ? { ...list, title: newTitle.trim() }
+        : list
+    ));
+  };
+
   return (
 
 <>
@@ -106,8 +130,43 @@ const BoardView: React.FC = () => {
               onAddCard={handleAddCard}
               onEditCard={handleEditCard}
               onDeleteCard={handleDeleteCard}
+              onEditTitle={handleEditListTitle}
             />
           ))}
+          
+          {isAddingList ? (
+            <div className="bg-white rounded-lg w-80 p-4">
+              <input
+                type="text"
+                placeholder="Введіть назву списку..."
+                value={newListTitle}
+                onChange={(e) => setNewListTitle(e.target.value)}
+                className="w-full mb-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-gray-900 shadow-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+              />
+              <div className="flex justify-end space-x-2">
+                <button
+                  onClick={() => setIsAddingList(false)}
+                  className="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+                >
+                  Скасувати
+                </button>
+                <button
+                  onClick={handleAddList}
+                  className="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+                >
+                  Додати
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsAddingList(true)}
+              className="bg-white/30 hover:bg-white/40 rounded-lg w-80 p-4 flex items-center justify-center text-white"
+            >
+              <span className="text-2xl mr-2">+</span>
+              Додати новий список
+            </button>
+          )}
         </div>
       </div>
     </>

@@ -7,12 +7,15 @@ interface ListProps {
   onAddCard: (listId: string, card: Omit<Card, 'id' | 'createdAt'>) => void;
   onEditCard: (listId: string, card: Card) => void;
   onDeleteCard: (listId: string, cardId: string) => void;
+  onEditTitle: (listId: string, newTitle: string) => void;
 }
 
-const List: React.FC<ListProps> = ({ list, onAddCard, onEditCard, onDeleteCard }) => {
+const List: React.FC<ListProps> = ({ list, onAddCard, onEditCard, onDeleteCard, onEditTitle }) => {
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [newCardTitle, setNewCardTitle] = useState('');
   const [newCardDescription, setNewCardDescription] = useState('');
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(list.title);
 
   const handleAddCard = () => {
     if (newCardTitle.trim()) {
@@ -29,7 +32,42 @@ const List: React.FC<ListProps> = ({ list, onAddCard, onEditCard, onDeleteCard }
   return (
     <div className="bg-white rounded-lg w-80 p-4">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">{list.title}</h2>
+        {isEditingTitle ? (
+          <div className="flex-1 mr-2">
+            <input
+              type="text"
+              value={editedTitle}
+              onChange={(e) => setEditedTitle(e.target.value)}
+              onBlur={() => {
+                if (editedTitle.trim() && editedTitle !== list.title) {
+                  onEditTitle(list.id, editedTitle);
+                }
+                setIsEditingTitle(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  if (editedTitle.trim() && editedTitle !== list.title) {
+                    onEditTitle(list.id, editedTitle);
+                  }
+                  setIsEditingTitle(false);
+                }
+                if (e.key === 'Escape') {
+                  setEditedTitle(list.title);
+                  setIsEditingTitle(false);
+                }
+              }}
+              className="w-full px-4 py-2 text-lg font-semibold bg-white border border-gray-200 rounded-md text-gray-900 shadow-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+              autoFocus
+            />
+          </div>
+        ) : (
+          <h2 
+            className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-purple-600"
+            onClick={() => setIsEditingTitle(true)}
+          >
+            {list.title}
+          </h2>
+        )}
         <span className="text-purple-600 text-sm">
           {list.cards.length}
         </span>
@@ -50,16 +88,16 @@ const List: React.FC<ListProps> = ({ list, onAddCard, onEditCard, onDeleteCard }
         <div className="mt-4">
           <input
             type="text"
-            placeholder="Enter card title..."
+            placeholder="Назва картки"
             value={newCardTitle}
             onChange={(e) => setNewCardTitle(e.target.value)}
-            className="w-full mb-2 px-3 py-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full mb-2 px-4 py-2 bg-white border border-gray-200 rounded-md text-gray-900 shadow-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
           />
           <textarea
-            placeholder="Enter description..."
+            placeholder="Опис картки"
             value={newCardDescription}
             onChange={(e) => setNewCardDescription(e.target.value)}
-            className="w-full mb-2 px-3 py-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full mb-3 px-4 py-2 bg-white border border-gray-200 rounded-md text-gray-900 shadow-sm focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none resize-none"
             rows={3}
           />
           <div className="flex justify-end space-x-2">
