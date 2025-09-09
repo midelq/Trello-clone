@@ -30,7 +30,7 @@ const List: React.FC<ListProps> = ({ list, onAddCard, onEditCard, onDeleteCard, 
   };
 
   return (
-    <div className="bg-white rounded-lg w-80 p-4">
+    <div className="bg-white rounded-lg w-80 p-4 flex-shrink-0">
       <div className="flex justify-between items-center mb-4">
         {isEditingTitle ? (
           <div className="flex-1 mr-2">

@@ -117,12 +117,12 @@ const BoardView: React.FC = () => {
 
 <>
       <Navbar username={user.email} />
-      <div className="min-h-screen bg-[#6366F1] p-6">
+      <div className="min-h-screen min-w-full bg-[#6366F1] p-6" style={{ minWidth: 'fit-content' }}>
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-white">{board?.title || 'Board View'}</h1>
         </div>
 
-        <div className="flex space-x-4 overflow-x-auto pb-4 px-2">
+        <div className="flex space-x-4 overflow-x-auto pb-4 px-2" style={{ minWidth: 'max-content' }}>
           {lists.map((list) => (
             <List
               key={list.id}
@@ -135,7 +135,7 @@ const BoardView: React.FC = () => {
           ))}
           
           {isAddingList ? (
-            <div className="bg-white rounded-lg w-80 p-4">
+            <div className="bg-white rounded-lg w-80 p-4 flex-shrink-0">
               <input
                 type="text"
                 placeholder="Введіть назву списку..."
@@ -161,7 +161,7 @@ const BoardView: React.FC = () => {
           ) : (
             <button
               onClick={() => setIsAddingList(true)}
-              className="bg-white/30 hover:bg-white/40 rounded-lg w-80 p-4 flex items-center justify-center text-white"
+              className="bg-white/20 hover:bg-white/30 rounded-lg w-80 p-4 flex items-center justify-center text-white flex-shrink-0 border border-white/30"
             >
               <span className="text-2xl mr-2">+</span>
               Додати новий список
