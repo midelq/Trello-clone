@@ -113,6 +113,12 @@ const BoardView: React.FC = () => {
     ));
   };
 
+  const handleDeleteList = (listId: string) => {
+    if (window.confirm('Ви впевнені, що хочете видалити цей список? Усі картки в ньому також будуть видалені.')) {
+      setLists(lists.filter(list => list.id !== listId));
+    }
+  };
+
   return (
 
 <>
@@ -122,7 +128,7 @@ const BoardView: React.FC = () => {
           <h1 className="text-2xl font-bold text-white">{board?.title || 'Board View'}</h1>
         </div>
 
-        <div className="flex space-x-4 overflow-x-auto pb-4 px-2" style={{ minWidth: 'max-content' }}>
+        <div className="flex space-x-4 overflow-x-auto pb-4 px-2" style={{ minWidth: 'max-content', position: 'relative' }}>
           {lists.map((list) => (
             <List
               key={list.id}
@@ -131,6 +137,7 @@ const BoardView: React.FC = () => {
               onEditCard={handleEditCard}
               onDeleteCard={handleDeleteCard}
               onEditTitle={handleEditListTitle}
+              onDeleteList={handleDeleteList}
             />
           ))}
           
